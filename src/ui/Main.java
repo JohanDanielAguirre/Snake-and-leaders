@@ -5,6 +5,7 @@ import model.PlayController;
 import model.State;
 
 import java.util.Scanner;
+import java.util.Random;
 public class Main {
     //Attribute
     private int height;
@@ -12,15 +13,19 @@ public class Main {
     //Relationship
     private PlayController pc;
     private Board bd;
-    private Scanner sc;
+    private static Scanner sc;
+    private static boolean exit = false;
     //Builder
     public Main() {
         sc = new Scanner(System.in);
     }
     public static void main(String[] args) {
         Main m = new Main();
+        m.mainMenu();
         //m.test();
-        m.operation();
+       // m.operation();
+       // m.menuAddPlayer();
+
     }
     private void operation() {
         System.out.println("ingrese el alto del tablero");
@@ -32,8 +37,45 @@ public class Main {
         pc.addPlayer("J2",1);
         play(0,1);
     }
+    private void mainMenu(){
+        while (!exit){
+            System.out.println( """
+                     
+                    [1] jugar
+                    [2] salir
+                    
+                     \
+                    """);
+             String selectTemp = sc.nextLine();
+             int select = Integer.parseInt(selectTemp);
+
+             switch (select){
+                 case 0:
+                     exit = true;
+                 break;
+                 case 1:
+                     menu();
+                 break;
+             }
+
+        }
+    }
+    private void menu(){
+        while (!exit){
+            System.out.println( """
+                     
+                    [1] Tirar dados
+                    [2] ver Tablero
+                    [3] salir
+                     \
+                    """);
+
+
+        }
+    }
     private void play(int turn,int nextturn) {
         int dice=0,fate=0;
+        Random azar= new Random();
         System.out.println("turno del jugador "+ (turn+1));
         System.out.println(
                         "1. tirar dado \n" +
@@ -42,7 +84,7 @@ public class Main {
          fate = sc.nextInt();
         switch (fate){
             case 1:
-                dice=(int)(Math.random()*6+1);
+                dice= azar.nextInt(6)+1;
                 System.out.println("Dado: "+dice);
                 if(!checkwin(pc.getPlayerPosition(turn),dice)){
 					pc.setPositionOnBoard(turn,(pc.getPlayerPosition(turn)+dice));
@@ -68,4 +110,64 @@ public class Main {
 			return false;
 		}
     }
+
+    private void menuAddPlayer(){
+
+        while (!exit){
+
+            System.out.println("""
+
+                     [1] Add Player
+                     
+                     [0] Back to main menu \
+                    """);
+            String optionTemp = sc.nextLine();
+            int option = Integer.parseInt(optionTemp);
+
+
+            switch (option ){
+                case 0:
+                    exit = true;
+                    break;
+                case 1:
+                   addPlayer();
+                    break;
+            }
+
+
+        }
+    }
+    private  void addPlayer(){
+
+        while (!exit){
+            System.out.println("select an user");
+            String name = sc.nextLine();
+            String[] users = name.split("");
+
+
+            System.out.println("""
+
+                     [1] Add  other Player
+                     
+                     [0] Back to main menu 
+                     \
+                    """);
+            String optionTemp = sc.nextLine();
+            int option = Integer.parseInt(optionTemp);
+
+            switch (option ){
+                case 0:
+                    exit = true;
+                    break;
+                case 1:
+
+                    break;
+            }
+        }
+
+
+
+
+    }
+
 }
