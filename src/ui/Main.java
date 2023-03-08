@@ -4,6 +4,7 @@ import model.Box;
 import model.PlayController;
 import model.State;
 
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.Random;
 public class Main {
@@ -42,7 +43,7 @@ public class Main {
             System.out.println( """
                      
                     [1] jugar
-                    [2] salir
+                    [0] salir
                     
                      \
                     """);
@@ -54,7 +55,7 @@ public class Main {
                      exit = true;
                  break;
                  case 1:
-                     menu();
+                     menuAddPlayer();
                  break;
              }
 
@@ -69,18 +70,32 @@ public class Main {
                     [3] salir
                      \
                     """);
+            String optionTemp = sc.nextLine();
+            int option = Integer.parseInt(optionTemp);
+            switch (option){
+                case 1 :
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
 
 
         }
     }
     private void play(int turn,int nextturn) {
+
         int dice=0,fate=0;
         Random azar= new Random();
+
         System.out.println("turno del jugador "+ (turn+1));
+
         System.out.println(
                         "1. tirar dado \n" +
                         "2. ver el tablero \n"+
                                 "3. salir");
+
          fate = sc.nextInt();
         switch (fate){
             case 1:
@@ -118,7 +133,7 @@ public class Main {
             System.out.println("""
 
                      [1] Add Player
-                     
+                     [2] Show players
                      [0] Back to main menu \
                     """);
             String optionTemp = sc.nextLine();
@@ -127,10 +142,13 @@ public class Main {
 
             switch (option ){
                 case 0:
-                    exit = true;
+                    mainMenu();
                     break;
                 case 1:
                    addPlayer();
+                    break;
+                case 2:
+
                     break;
             }
 
@@ -148,7 +166,6 @@ public class Main {
             System.out.println("""
 
                      [1] Add  other Player
-                     
                      [0] Back to main menu 
                      \
                     """);
@@ -157,7 +174,7 @@ public class Main {
 
             switch (option ){
                 case 0:
-                    exit = true;
+                    mainMenu();
                     break;
                 case 1:
 
