@@ -1,24 +1,28 @@
 package model;
+
 public class Player {
-    //Attributes
-    private int position;
-    private String name;
-    //Builder
-    public Player(String name,int position) {
-        this.position = position;
-        this.name = name;
+
+    private String symbol;
+    private int score;
+
+    public Player(String symbol) {
+        this.symbol = symbol;
+        score = 0;
     }
-    //Getters and Setters
-    public String getName() {
-        return name;
+
+    public String getSymbol() {
+        return symbol;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
-    public int getPosition() {
-        return position;
+
+    public int getScore() {
+        return score;
     }
-    public void setPosition(int position) {
-        this.position = position;
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
