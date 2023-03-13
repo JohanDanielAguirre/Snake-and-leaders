@@ -10,6 +10,16 @@ public class Tile {
     private Snake snake;
     private Ladder ladder;
 
+    private StateSnakeOrLadder state;
+
+    public StateSnakeOrLadder getState() {
+        return state;
+    }
+
+    public void setState(StateSnakeOrLadder state) {
+        this.state = state;
+    }
+
     public Snake getSnake() {
         return snake;
     }
@@ -31,6 +41,7 @@ public class Tile {
     public Tile(int numberTile) {
         this.numberTile = numberTile;
         players = new Player[3];
+        state = StateSnakeOrLadder.FREE;
     }
 
     public int getNumberTile() {

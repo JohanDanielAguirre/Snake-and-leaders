@@ -6,9 +6,11 @@ public class Board {
     private Tile tail;
 
     private int numOfTiles;
+    private int n;
+    private int m;
 
-    public Board(int numOfTiles){
-        this.numOfTiles = numOfTiles;
+    public Board(int n, int m){
+        this.numOfTiles = n*m;
     }
     public void createBoard(int numberTiles){
         createBoard(numOfTiles,0);
@@ -40,7 +42,9 @@ public class Board {
 
         if (numRandom > 1 || numRandom < numberOfTiles){
             Tile tile = findTile(root,numRandom);
-            tile.setSnake(new Snake('A'));
+            if(tile != null && tile.getSnake().equals(StateSnakeOrLadder.OCCUPIEDLADDER)&&tile.getSnake().equals(StateSnakeOrLadder.OCCUPIEDSNAKE)) {
+                tile.setSnake(new Snake('A'));
+            }
         }
 
     }

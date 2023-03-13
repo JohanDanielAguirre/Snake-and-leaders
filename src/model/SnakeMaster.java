@@ -4,9 +4,9 @@ public class SnakeMaster {
 
     private Board board;
 
-    public SnakeMaster(int numTiles){
-        board = new Board(numTiles);
-        board.createBoard(numTiles);
+    public SnakeMaster(int n, int m){
+        board = new Board(n,m);
+        board.createBoard((n*m));
     }
 
 
