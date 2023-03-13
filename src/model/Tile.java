@@ -7,42 +7,23 @@ public class Tile {
     private Tile next;
     private Tile previous;
 
-    private Snake snakeHead;
-    private Snake snakeTail;
+    private Snake snake;
+    private Ladder ladder;
 
-    private Ladder start;
-    private Ladder end;
-
-    public Snake getSnakeHead() {
-        return snakeHead;
+    public Snake getSnake() {
+        return snake;
     }
 
-    public void setSnakeHead(Snake snakeHead) {
-        this.snakeHead = snakeHead;
+    public void setSnake(Snake snake) {
+        this.snake = snake;
     }
 
-    public Snake getSnakeTail() {
-        return snakeTail;
+    public Ladder getLadder() {
+        return ladder;
     }
 
-    public void setSnakeTail(Snake snakeTail) {
-        this.snakeTail = snakeTail;
-    }
-
-    public Ladder getStart() {
-        return start;
-    }
-
-    public void setStart(Ladder start) {
-        this.start = start;
-    }
-
-    public Ladder getEnd() {
-        return end;
-    }
-
-    public void setEnd(Ladder end) {
-        this.end = end;
+    public void setLadder(Ladder ladder) {
+        this.ladder = ladder;
     }
 
     private Player[] players;
