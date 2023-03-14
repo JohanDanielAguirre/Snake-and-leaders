@@ -9,6 +9,10 @@ public class SnakeMaster {
         board.createBoard((n*m));
     }
 
+    public void addSnakesinBoard(){
+
+    }
+
 
 
 

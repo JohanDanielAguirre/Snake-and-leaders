@@ -1,7 +1,9 @@
 package model;
+import java.util.Random;
 
 public class Board {
 
+    Random objRandom = new Random();
     private Tile root;
     private Tile tail;
 
@@ -36,16 +38,34 @@ public class Board {
 
     }
 
-    private void addSnakesToTiles(int numberOfTiles,char id){
+    public void addSnakes(){
+        int numSnakes = numOfTiles/10;
+        addSnakesToTiles(65,numSnakes);
 
-        int numRandom = (int) Math.random() * numberOfTiles;
+    }
 
-        if (numRandom > 1 || numRandom < numberOfTiles){
-            Tile tile = findTile(root,numRandom);
-            if(tile != null && tile.getSnake().equals(StateSnakeOrLadder.OCCUPIEDLADDER)&&tile.getSnake().equals(StateSnakeOrLadder.OCCUPIEDSNAKE)) {
-                tile.setSnake(new Snake('A'));
+    private void addSnakesToTiles(int id, int snakesLeft){
+
+        int numRandomHead = (int) (Math.random() * numOfTiles);
+
+        if (numRandomHead > 3 || numRandomHead < numOfTiles){
+            Tile tile = findTile(root,numRandomHead);
+            if(tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
+
+                tile.setSnake(new Snake(id));
+                tile.setHead(true);
+                int tailPlace = objRandom.nextInt(numRandomHead) + 1;
+                Tile tileTail = findTile(root,tailPlace);
+                if(tileTail != null && tileTail.getState().equals(StateSnakeOrLadder.FREE)){
+
+                    tileTail.setSnake(new Snake(id));
+
+                }
+
             }
+
         }
+        if (snakesLeft != 0) addSnakesToTiles(id+1,snakesLeft-1);
 
     }
 

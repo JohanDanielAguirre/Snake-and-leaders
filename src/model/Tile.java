@@ -8,9 +8,18 @@ public class Tile {
     private Tile previous;
 
     private Snake snake;
+    private boolean isHead;
     private Ladder ladder;
 
     private StateSnakeOrLadder state;
+
+    public boolean isHead() {
+        return isHead;
+    }
+
+    public void setHead(boolean head) {
+        isHead = head;
+    }
 
     public StateSnakeOrLadder getState() {
         return state;
