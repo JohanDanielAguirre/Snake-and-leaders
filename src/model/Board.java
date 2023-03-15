@@ -59,6 +59,7 @@ public class Board {
                 tile.setHead(true);
                 Tile tileTail = null;
                 int tailPlace = 0;
+
                 while (flag) {
                     tailPlace = objRandom.nextInt(numRandomHead);
                     tileTail = findTile(root, tailPlace);
@@ -88,15 +89,32 @@ public class Board {
 
     private void addLaddersToTiles(int id, int laddersleft){
         int numRandomHead = (int) (Math.random() * numOfTiles);
+
+        boolean flag = true;
         if (numRandomHead > 3 || numRandomHead < numOfTiles){
             Tile tile = findTile(root,numRandomHead);
             if(tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
+
                 tile.setLadder(new Ladder(id));
-                int tailPlace = objRandom.nextInt(numRandomHead) + 1;
-                Tile tileTail = findTile(root,tailPlace);
-                if(tileTail != null && tileTail.getState().equals(StateSnakeOrLadder.FREE)){
-                    tileTail.setLadder(new Ladder(id));
-                    tileTail.setHead(true);
+
+                int startPlace = 0;
+
+                Tile tileStart = null;
+
+                while(flag){
+                    startPlace = objRandom.nextInt(numRandomHead);
+                    tileStart = findTile(root,startPlace);
+
+                    if (tile.getState().equals(StateSnakeOrLadder.FREE)){
+                        flag = false;
+                    }
+                }
+
+                if(tileStart != null && tileStart.getState().equals(StateSnakeOrLadder.FREE)){
+
+                    tileStart.setLadder(new Ladder(id));
+                    tileStart.setHead(true);
+
                 }
             }
         }
