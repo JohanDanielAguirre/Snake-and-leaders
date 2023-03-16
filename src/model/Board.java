@@ -57,6 +57,7 @@ public class Board {
 
                 tile.setSnake(new Snake(id));
                 tile.setHead(true);
+                tile.setState(StateSnakeOrLadder.OCCUPIEDSNAKE);
                 Tile tileTail = null;
                 int tailPlace = 0;
 
@@ -72,6 +73,7 @@ public class Board {
                 if (tileTail.getState().equals(StateSnakeOrLadder.FREE)) {
 
                     tileTail.setSnake(new Snake(id));
+                    tileTail.setState(StateSnakeOrLadder.OCCUPIEDSNAKE);
 
                 }
 
@@ -84,7 +86,7 @@ public class Board {
 
     public void addLaddersToTiles(){
         int numLadders = numOfTiles/10;
-        addSnakesToTiles(1,numLadders);
+        addLaddersToTiles(1,numLadders);
     }
 
     private void addLaddersToTiles(int id, int laddersleft){
@@ -96,6 +98,7 @@ public class Board {
             if(tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
 
                 tile.setLadder(new Ladder(id));
+                tile.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
 
                 int startPlace = 0;
 
@@ -114,6 +117,7 @@ public class Board {
 
                     tileStart.setLadder(new Ladder(id));
                     tileStart.setHead(true);
+                    tileStart.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
 
                 }
             }
