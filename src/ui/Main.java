@@ -197,4 +197,7 @@ public class Main {
        // pc.addPlayer("J2",1);
         play(0,1);
     }
+    private void showboard(){
+        //pendiente
+    }
 }
