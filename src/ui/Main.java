@@ -1,50 +1,48 @@
 package ui;
 import model.Board;
 import model.Box;
-import model.PlayController;
+import model.*;
 import model.State;
 
 import javax.swing.*;
 import java.util.Scanner;
 import java.util.Random;
+
+
+
 public class Main {
     //Attribute
     private int height;
     private int width;
     //Relationship
     private PlayController pc;
-    private Board bd;
+
     private static Scanner sc;
     private static boolean exit = false;
     //Builder
     public Main() {
+
         sc = new Scanner(System.in);
     }
     public static void main(String[] args) {
         Main m = new Main();
         m.mainMenu();
-        //m.test();
-       // m.operation();
-       // m.menuAddPlayer();
+
 
     }
-    private void operation() {
-        System.out.println("ingrese el alto del tablero");
-        height= sc.nextInt();
-        System.out.println("ingrese el ancho del tablero ");
-        width = sc.nextInt();
-        pc = new PlayController(height*width);
-        pc.addPlayer("J1",1);
-        pc.addPlayer("J2",1);
-        play(0,1);
-    }
+
     private void mainMenu(){
         while (!exit){
             System.out.println( """
-                     
+                                        
+                    WELCOME TO
+                    SNAKES AND LADDERS
+                    ---------------------------------
+                    PRESIONE
+                                        
                     [1] jugar
                     [0] salir
-                    
+                    ---------------------------------                    
                      \
                     """);
              String selectTemp = sc.nextLine();
@@ -61,29 +59,7 @@ public class Main {
 
         }
     }
-    private void menu(){
-        while (!exit){
-            System.out.println( """
-                     
-                    [1] Tirar dados
-                    [2] ver Tablero
-                    [3] salir
-                     \
-                    """);
-            String optionTemp = sc.nextLine();
-            int option = Integer.parseInt(optionTemp);
-            switch (option){
-                case 1 :
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
 
-
-        }
-    }
     private void play(int turn,int nextturn) {
 
         int dice=0,fate=0;
@@ -131,10 +107,17 @@ public class Main {
         while (!exit){
 
             System.out.println("""
-
+                     
+                     MENU SETTINGS 
+                    +++++++++++++++++++++
+                    
                      [1] Add Player
                      [2] Show players
-                     [0] Back to main menu \
+                     [3] Start game 
+                     [0] Back to main menu 
+                    ++++++++++++++++++++++
+                     \
+                     
                     """);
             String optionTemp = sc.nextLine();
             int option = Integer.parseInt(optionTemp);
@@ -148,8 +131,19 @@ public class Main {
                    addPlayer();
                     break;
                 case 2:
+                    //pendiente metodo se mostrar jugadores
 
                     break;
+                case 3:
+                    System.out.println( """
+                     
+                     CREATING BOARD.....
+                     \
+                     
+                    """);
+                    operation();
+                    break;
+
             }
 
 
@@ -158,14 +152,26 @@ public class Main {
     private  void addPlayer(){
 
         while (!exit){
-            System.out.println("select an user");
-            String name = sc.nextLine();
-            String[] users = name.split("");
+
+            String[] player = new String[3];
+            for (int i = 0; i< player.length;i++){
+                System.out.println("player -> " + (i+1)
+                                    + "\n select a simbol"
+                                    +"\n  * ! O X % $ # + &");
+                String simbol = sc.nextLine();
+                int puntaje =0;
+                int posicion = 0;
+
+                //pendiente arbol para agragar usuario y puntaje
+
+
+
+            }
 
 
             System.out.println("""
 
-                     [1] Add  other Player
+                     
                      [0] Back to main menu 
                      \
                     """);
@@ -176,15 +182,19 @@ public class Main {
                 case 0:
                     mainMenu();
                     break;
-                case 1:
 
-                    break;
             }
         }
 
-
-
-
     }
-
+    private void operation() {
+        System.out.println("ingrese el alto del tablero");
+        height= sc.nextInt();
+        System.out.println("ingrese el ancho del tablero ");
+        width = sc.nextInt();
+        pc = new PlayController(height*width);
+     //   pc.addPlayer("J1",1);
+       // pc.addPlayer("J2",1);
+        play(0,1);
+    }
 }

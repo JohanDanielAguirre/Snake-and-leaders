@@ -1,24 +1,40 @@
 package model;
 public class Player {
+
     //Attributes
+
     private int position;
-    private String name;
-    //Builder
-    public Player(String name,int position) {
+    private int puntaje;
+    private String simbolo;
+
+    public Player( int puntaje, String simbolo) {
         this.position = position;
-        this.name = name;
+        this.puntaje = puntaje;
+        this.simbolo = simbolo;
     }
-    //Getters and Setters
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+
     public int getPosition() {
         return position;
     }
+
     public void setPosition(int position) {
         this.position = position;
     }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public String getSimbolo() {
+        return simbolo;
+    }
+
+    public void setSimbolo(String simbolo) {
+        this.simbolo = simbolo;
+    }
+
 }

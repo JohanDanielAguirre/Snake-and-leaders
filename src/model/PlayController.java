@@ -18,14 +18,17 @@ public class PlayController {
         createBoard(value,pointer+1);
     }
 
-    public void addPlayer(String name, int position) {
-        if (players[0] == null) players[0] = new Player(name, position);
-        else if (players[1] == null) players[1] = new Player(name, position);
-        else System.out.println("No space");
-        setPositionOnBoard();
-    }
+    //public void addPlayer(String name, int position) {
+      //  if (players[0] == null) players[0] = new Player(name, position);
+        //else if (players[1] == null) players[1] = new Player(name, position);
+        //else System.out.println("No space");
+        //setPositionOnBoard();
+    //}
+
+    //public void addPlayer()
 
     public int getPlayerPosition(int player) {
+
         return players[player].getPosition();
     }
 
@@ -48,9 +51,9 @@ public class PlayController {
         String out = "";
         if (bd.valueBox(value+1) == State.OCCUPIED) {
             if (players[0].getPosition() == value+1)
-                out += players[0].getName() + " ";
+                out += players[0].getSimbolo() + " ";
             if (players[1].getPosition() == value+1)
-                out += players[1].getName();
+                out += players[1].getSimbolo();
         } else out = ""+(value+1);
         if (value%width == 0) System.out.println();
         System.out.print("[ " + out + " ] ");
