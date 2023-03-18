@@ -2,27 +2,40 @@ package model;
 
 public class Player {
 
-    private String symbol;
-    private int score;
+    //Attributes
 
-    public Player(String symbol) {
-        this.symbol = symbol;
-        score = 0;
+    private int position;
+    private int puntaje;
+    private String simbolo;
+
+    public Player( int puntaje, String simbolo) {
+        this.position = position;
+        this.puntaje = puntaje;
+        this.simbolo = simbolo;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public int getPosition() {
+        return position;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
-    public int getScore() {
-        return score;
+    public int getPuntaje() {
+        return puntaje;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
     }
+
+    public String getSimbolo() {
+        return simbolo;
+    }
+
+    public void setSimbolo(String simbolo) {
+        this.simbolo = simbolo;
+    }
+
 }
