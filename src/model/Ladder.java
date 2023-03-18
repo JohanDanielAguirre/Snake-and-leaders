@@ -16,7 +16,7 @@ public class Ladder implements Transportable{
     }
     private void transport(Tile node, int id, Player j){
         if(node.getLadder().getId()==id && node.isHead() == false){
-            node.setPlayers(node.getPlayers()+j);//esta linea debe ser cambiada por que desconozco como se implementan los jugadores en las casillas
+           // node.setPlayers(node.getPlayers()+j);//esta linea debe ser cambiada por que desconozco como se implementan los jugadores en las casillas
         }else{
             transport(node.getNext(),id,j);
         }

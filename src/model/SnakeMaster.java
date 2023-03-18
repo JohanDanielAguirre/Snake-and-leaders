@@ -15,6 +15,21 @@ public class SnakeMaster {
         board.createBoard((n*m));
     }
 
+
+    public String print(){
+        return board.printBoard();
+    }
+    /*
+    private boolean checkwin(int playerPosition, int dice) {
+        if((playerPosition+dice)>=(height*width)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+     */
+
     
 
     

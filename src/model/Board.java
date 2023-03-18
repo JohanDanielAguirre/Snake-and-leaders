@@ -1,4 +1,6 @@
 package model;
+import com.sun.jndi.toolkit.ctx.HeadTail;
+
 import java.util.Random;
 
 public class Board {
@@ -13,6 +15,8 @@ public class Board {
 
     public Board(int n, int m) {
         this.numOfTiles = n * m;
+        this.n = n;
+        this.m = m;
     }
 
     public void createBoard(int numberTiles) {
@@ -134,6 +138,59 @@ public class Board {
 
         return tileFound;
     }
+
+    public String printBoard(){
+        String msg = "";
+        msg = printBoard(root,0,"",0);
+        return msg;
+    }
+
+    private String printBoard(Tile pointer,int value,String msgRe,int counter){
+        if (value >= n*m) return msgRe;
+        String out = "";
+
+        if (counter%2 == 0){
+
+            out = "" + pointer.getNumberTile();
+        }else{
+            out = ""+(pointer);
+        }
+
+        if (value%m+1 == 0){
+            msgRe += "\n";
+            counter++;
+        }
+
+
+        msgRe += "[ " + out + " ] ";
+
+        return printBoard(pointer.getNext(),++value,msgRe,counter);
+    }
+
+    public void imprimirTablero(int fila, int columna) {
+        if (fila ==  n + 1) {  // Caso base: se llegó al final de las filas
+            return;
+        }
+
+        int numero;
+        if (fila % 2 != 0) {  // si la fila es impar
+            numero = (fila - 1) * m + columna;
+        } else {  // si la fila es par
+            numero = fila * m - columna + 1;
+        }
+
+        System.out.print(numero + "\t");  // Imprimir el número actual
+
+        if (columna == m) {  // Si se llegó al final de la fila, hacer un salto de línea
+            System.out.println();
+            imprimirTablero(fila + 1, 1);  // Llamada recursiva para imprimir la siguiente fila
+        } else {  // Si no se llegó al final de la fila, imprimir el siguiente número en la misma fila
+            imprimirTablero(fila, columna + 1);
+        }
+    }
+
+
+
 
 
 

@@ -6,13 +6,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    //Attribute
-    private int height;
-    private int width;
     //Relationship
     private SnakeMaster pc;
-
-    private static Scanner sc;
+    private Scanner sc;
     private static boolean exit = false;
     //Builder
     public Main() {
@@ -28,20 +24,17 @@ public class Main {
 
     private void mainMenu(){
         while (!exit){
-            System.out.println( """
-                                        
-                    WELCOME TO
-                    SNAKES AND LADDERS
-                    ---------------------------------
-                    PRESIONE
-                                        
-                    [1] jugar
-                    [0] salir
-                    ---------------------------------                    
-                     \
-                    """);
-            String selectTemp = sc.nextLine();
-            int select = Integer.parseInt(selectTemp);
+            System.out.println( "WELCOME TO\n" +
+                    "  SNAKES AND LADDERS\n" +
+                    "  ---------------------------------\n" +
+                    "  PRESIONE\n" +
+                    "  \n" +
+                    "  [1] jugar\n" +
+                    "  [0] salir\n" +
+                    "  ---------------------------------- \n" +
+                    " \\");
+            int select = sc.nextInt();
+            sc.nextLine();
 
             switch (select){
                 case 0:
@@ -55,67 +48,27 @@ public class Main {
         }
     }
 
-    private void play(int turn,int nextturn) {
 
-        int dice=0,fate=0;
-        Random azar= new Random();
 
-        System.out.println("turno del jugador "+ (turn+1));
-
-        System.out.println(
-                "1. tirar dado \n" +
-                        "2. ver el tablero \n"+
-                        "3. salir");
-
-        fate = sc.nextInt();
-        switch (fate){
-            case 1:
-                dice= azar.nextInt(6)+1;
-                System.out.println("Dado: "+dice);
-                if(!checkwin(pc.getPlayerPosition(turn),dice)){
-                    pc.setPositionOnBoard(turn,(pc.getPlayerPosition(turn)+dice));
-                }else {
-                    System.out.println("el jugador "+(turn+1)+ " gano la partida");
-                    return;
-                }
-                break;
-            case 2:
-                pc.print(height,width,0);
-                System.out.println();
-                break;
-            case 3:
-                System.out.println("el jugador "+(nextturn+1)+" gano la partida");
-                return;
-        }
-        play(nextturn,turn);
-    }
-    private boolean checkwin(int playerPosition, int dice) {
-        if((playerPosition+dice)>=(height*width)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     private void menuAddPlayer(){
 
         while (!exit){
 
-            System.out.println("""
-                     
-                     MENU SETTINGS 
-                    +++++++++++++++++++++
-                    
-                     [1] Add Player
-                     [2] Show players
-                     [3] Start game 
-                     [0] Back to main menu 
-                    ++++++++++++++++++++++
-                     \
-                     
-                    """);
-            String optionTemp = sc.nextLine();
-            int option = Integer.parseInt(optionTemp);
+            System.out.println("  \n" +
+                    "  MENU SETTINGS \n" +
+                    "  +++++++++++++++++++++\n" +
+                    " \n" +
+                    "  [1] Add Player\n" +
+                    "  [2] Show players\n" +
+                    "  [3] Start game \n" +
+                    "  [0] Back to main menu \n" +
+                    "   ++++++++++++++++++++++\n" +
+                    "                     \n" +
+                    "                     ");
+
+            int option = sc.nextInt();
+            sc.nextLine();
 
 
             switch (option ){
@@ -130,12 +83,10 @@ public class Main {
 
                     break;
                 case 3:
-                    System.out.println( """
-                     
-                     CREATING BOARD.....
-                     \
-                     
-                    """);
+                    System.out.println("  \n" +
+                            " CREATING BOARD.....\n" +
+                            "  \n" +
+                            " ");
                     operation();
                     break;
 
@@ -164,14 +115,12 @@ public class Main {
             }
 
 
-            System.out.println("""
-
-                     
-                     [0] Back to main menu 
-                     \
-                    """);
-            String optionTemp = sc.nextLine();
-            int option = Integer.parseInt(optionTemp);
+            System.out.println("\n" +
+                    "                     \n" +
+                    "                     [0] Back to main menu \n" +
+                    "                     \\");
+            int option = sc.nextInt();
+            sc.nextLine();
 
             switch (option ){
                 case 0:
@@ -183,16 +132,15 @@ public class Main {
 
     }
     private void operation() {
-        System.out.println("ingrese el alto del tablero");
-        height= sc.nextInt();
-        System.out.println("ingrese el ancho del tablero ");
-        width = sc.nextInt();
-        pc = new PlayController(height*width);
-        //   pc.addPlayer("J1",1);
-        // pc.addPlayer("J2",1);
-        play(0,1);
+        System.out.println("Ingrese el alto del tablero");
+        int height= sc.nextInt();
+        System.out.println("Ingrese el ancho del tablero ");
+        int width = sc.nextInt();
+        pc = new SnakeMaster(height,width);
+        showboard();
+        System.out.println("No funciona si solo se muestra esta");
     }
     private void showboard(){
-        //pendiente
+        System.out.println(pc.print());
     }
 }

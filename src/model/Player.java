@@ -4,30 +4,20 @@ public class Player {
 
     //Attributes
 
-    private int position;
-    private int puntaje;
+    private int score;
     private String simbolo;
 
-    public Player( int puntaje, String simbolo) {
-        this.position = position;
-        this.puntaje = puntaje;
+    public Player(String simbolo) {
         this.simbolo = simbolo;
     }
 
-    public int getPosition() {
-        return position;
+
+    public int getScore() {
+        return score;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public int getPuntaje() {
-        return puntaje;
-    }
-
-    public void setPuntaje(int puntaje) {
-        this.puntaje = puntaje;
+    public void setScore(int puntaje) {
+        this.score = puntaje;
     }
 
     public String getSimbolo() {
