@@ -10,14 +10,28 @@ public class SnakeMaster {
     }
 
     public void createBoard(int n, int m){
-        board.addSnakes();
-        board.addLaddersToTiles();
         board.createBoard((n*m));
+        System.out.println("Se crea tablero");
+        board.addSnakes();
+        System.out.println("Se crea serpientes");
+        board.addLaddersToTiles();
+        System.out.println("poto");
+
+
     }
 
 
     public String print(){
         return board.printBoard();
+
+    }
+    public String print2(){
+        return board.printSnake();
+
+    }
+    public String print3(){
+        return board.printLadder();
+
     }
     /*
     private boolean checkwin(int playerPosition, int dice) {

@@ -142,5 +142,7 @@ public class Main {
     }
     private void showboard(){
         System.out.println(pc.print());
+        System.out.println(pc.print2());
+        System.out.println(pc.print3());
     }
 }

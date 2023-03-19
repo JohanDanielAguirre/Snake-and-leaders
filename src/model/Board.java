@@ -45,14 +45,14 @@ public class Board {
     }
 
     public void addSnakes() {
-        int numSnakes = numOfTiles / 10;
+        int numSnakes = n;
         addSnakesToTiles(65, numSnakes);
 
     }
 
     private void addSnakesToTiles(int id, int snakesLeft) {
 
-        int numRandomHead = (int) (Math.random() * numOfTiles);
+        int numRandomHead = (int) (Math.random() * (numOfTiles)) + 1;
         boolean flag = true;
 
         if (numRandomHead > 3 || numRandomHead < numOfTiles) {
@@ -66,9 +66,12 @@ public class Board {
                 int tailPlace = 0;
 
                 while (flag) {
+
                     tailPlace = objRandom.nextInt(numRandomHead);
+                    tailPlace= tailPlace == 0? tailPlace + 2 : tailPlace;
                     tileTail = findTile(root, tailPlace);
-                    if (tileTail.getState().equals(StateSnakeOrLadder.FREE)) {
+
+                    if (tileTail!= null && tileTail.getState().equals(StateSnakeOrLadder.FREE)) {
                         flag = false;
                     }
 
@@ -89,14 +92,15 @@ public class Board {
     }
 
     public void addLaddersToTiles(){
-        int numLadders = numOfTiles/10;
+        int numLadders = m;
         addLaddersToTiles(1,numLadders);
     }
 
     private void addLaddersToTiles(int id, int laddersleft){
-        int numRandomHead = (int) (Math.random() * numOfTiles);
+        int numRandomHead = (int) (Math.random() * (numOfTiles)) + 1;
 
         boolean flag = true;
+
         if (numRandomHead > 3 || numRandomHead < numOfTiles){
             Tile tile = findTile(root,numRandomHead);
             if(tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
@@ -104,20 +108,20 @@ public class Board {
                 tile.setLadder(new Ladder(id));
                 tile.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
 
-                int startPlace = 0;
+                int startPlace;
 
                 Tile tileStart = null;
 
                 while(flag){
                     startPlace = objRandom.nextInt(numRandomHead);
+                    startPlace = startPlace == 0? startPlace + 2 : startPlace;
                     tileStart = findTile(root,startPlace);
-
-                    if (tile.getState().equals(StateSnakeOrLadder.FREE)){
+                    if (tileStart != null && tileStart.getState().equals(StateSnakeOrLadder.FREE)){
                         flag = false;
                     }
                 }
 
-                if(tileStart != null && tileStart.getState().equals(StateSnakeOrLadder.FREE)){
+                if(tileStart.getState().equals(StateSnakeOrLadder.FREE)){
 
                     tileStart.setLadder(new Ladder(id));
                     tileStart.setHead(true);
@@ -132,61 +136,103 @@ public class Board {
     public Tile findTile(Tile tileFound, int numTile){
 
         if(tileFound!=null && tileFound.getNumberTile()!=numTile){
-            findTile(tileFound.getNext(),numTile);
-
+           return findTile(tileFound.getNext(),numTile);
+        }else{
+            return tileFound;
         }
 
-        return tileFound;
+
     }
 
     public String printBoard(){
         String msg = "";
-        msg = printBoard(root,0,"",0);
+        msg = printBoard(n,1);
         return msg;
     }
+    private String printBoard(int fila, int columna) {
+       String msg = "";
 
-    private String printBoard(Tile pointer,int value,String msgRe,int counter){
-        if (value >= n*m) return msgRe;
-        String out = "";
-
-        if (counter%2 == 0){
-
-            out = "" + pointer.getNumberTile();
-        }else{
-            out = ""+(pointer);
+        if (fila ==  0) {
+            return "";
         }
-
-        if (value%m+1 == 0){
-            msgRe += "\n";
-            counter++;
-        }
-
-
-        msgRe += "[ " + out + " ] ";
-
-        return printBoard(pointer.getNext(),++value,msgRe,counter);
-    }
-
-    public void imprimirTablero(int fila, int columna) {
-        if (fila ==  n + 1) {  // Caso base: se llegó al final de las filas
-            return;
-        }
-
         int numero;
-        if (fila % 2 != 0) {  // si la fila es impar
+        if (fila % 2 != 0) {
             numero = (fila - 1) * m + columna;
-        } else {  // si la fila es par
+        } else {
             numero = fila * m - columna + 1;
         }
 
-        System.out.print(numero + "\t");  // Imprimir el número actual
+        msg+= "["+numero+"]";
 
-        if (columna == m) {  // Si se llegó al final de la fila, hacer un salto de línea
-            System.out.println();
-            imprimirTablero(fila + 1, 1);  // Llamada recursiva para imprimir la siguiente fila
-        } else {  // Si no se llegó al final de la fila, imprimir el siguiente número en la misma fila
-            imprimirTablero(fila, columna + 1);
+        if (columna == m) {
+            msg+="\n";
+            msg += printBoard(fila-1, 1);
+        } else {
+            msg += printBoard(fila, columna+1);
         }
+
+        return msg;
+    }
+
+    public String printSnake(){
+        String msg = "";
+        msg = printSnake(n,1,root,1);
+        return msg;
+    }
+
+    private String printSnake(int fila, int columna,Tile pointer,int counter) {
+
+        String msg = "";
+        if(pointer != null){
+            if (fila ==  0) {
+                return "" + counter;
+            }
+            if(pointer.getSnake()!=null){
+                msg+= "["+pointer.getNumberTile()+pointer.getSnake().getId()+"]";
+            }else{
+                msg+= "["+" "+"]";
+            }
+            if (columna == m) {
+                msg+="\n";
+                msg += printSnake(fila+1, 1,pointer.getNext(),counter+1);
+            } else {
+                msg += printSnake(fila, columna+1,pointer.getNext(),counter+1);
+            }
+        }
+
+
+        return msg;
+    }
+    public String printLadder(){
+        String msg = "";
+        msg = printLadder(n,1,root);
+        return msg;
+    }
+
+    private String printLadder(int fila, int columna,Tile pointer) {
+
+        String msg = "";
+
+        if(pointer != null){
+            if (fila == 0) {
+                return "";
+            }
+            if (pointer.getLadder() != null) {
+                msg += "[" + pointer.getLadder().getId() + "]";
+            } else {
+                msg += "[" + " " + "]";
+            }
+            if (columna == m) {
+                msg += "\n";
+                msg +=  printLadder(fila+1, 1, pointer.getNext());
+            } else {
+                msg +=  printLadder(fila, columna+1,pointer.getNext());
+            }
+
+        }
+
+        return msg;
+
     }
 
 

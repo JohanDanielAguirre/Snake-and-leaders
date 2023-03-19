@@ -51,6 +51,8 @@ public class Tile {
         this.numberTile = numberTile;
         players = new Player[3];
         state = StateSnakeOrLadder.FREE;
+        snake = null;
+        ladder = null;
     }
 
     public int getNumberTile() {
