@@ -118,6 +118,12 @@ public class Main {
                 System.out.println(pc.printLadder());
                 break;
            }
+
+           n++;
+
+           if(n >= 3){
+                n = 0;
+           }
         }while(pc.checkWin());
     }
 
