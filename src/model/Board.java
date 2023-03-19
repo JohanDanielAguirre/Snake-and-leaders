@@ -45,18 +45,29 @@ public class Board {
     }
 
     public void addSnakes() {
-        int numSnakes = n;
+        int numSnakes = numOfTiles/3;
         addSnakesToTiles(65, numSnakes);
 
     }
 
     private void addSnakesToTiles(int id, int snakesLeft) {
+        boolean flag2 = true;
+        int numRandomHead = 0;
+        Tile tile = null;
 
-        int numRandomHead = (int) (Math.random() * (numOfTiles)) + 1;
-        boolean flag = true;
+        while(flag2){
+            numRandomHead = (int) (Math.random() * (numOfTiles-1));
+            tile = findTile(root, numRandomHead);
+
+            if (tile!= null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
+                flag2 = false;
+            }
+        }
+
+        boolean flag1 = true;
 
         if (numRandomHead > 3 || numRandomHead < numOfTiles) {
-            Tile tile = findTile(root, numRandomHead);
+
             if (tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
 
                 tile.setSnake(new Snake(id));
@@ -65,19 +76,20 @@ public class Board {
                 Tile tileTail = null;
                 int tailPlace = 0;
 
-                while (flag) {
+                while (flag1) {
 
                     tailPlace = objRandom.nextInt(numRandomHead);
                     tailPlace= tailPlace == 0? tailPlace + 2 : tailPlace;
+                    tailPlace = tailPlace == 1? tailPlace + 1 : tailPlace;
                     tileTail = findTile(root, tailPlace);
 
                     if (tileTail!= null && tileTail.getState().equals(StateSnakeOrLadder.FREE)) {
-                        flag = false;
+                        flag1 = false;
                     }
 
                 }
 
-                if (tileTail.getState().equals(StateSnakeOrLadder.FREE)) {
+                if (tileTail.getState().equals(StateSnakeOrLadder.FREE) ) {
 
                     tileTail.setSnake(new Snake(id));
                     tileTail.setState(StateSnakeOrLadder.OCCUPIEDSNAKE);
@@ -87,12 +99,12 @@ public class Board {
             }
 
         }
-        if (snakesLeft != 0) addSnakesToTiles(id + 1, snakesLeft - 1);
+        if (snakesLeft > 1) addSnakesToTiles(id + 1, snakesLeft - 1);
 
     }
 
     public void addLaddersToTiles(){
-        int numLadders = m;
+        int numLadders = numOfTiles/3;
         addLaddersToTiles(1,numLadders);
     }
 
@@ -130,7 +142,7 @@ public class Board {
                 }
             }
         }
-        if (laddersleft != 0) {addLaddersToTiles(id+1,laddersleft-1);}
+        if (laddersleft > 1) {addLaddersToTiles(id+1,laddersleft-1);}
     }
 
     public Tile findTile(Tile tileFound, int numTile){
