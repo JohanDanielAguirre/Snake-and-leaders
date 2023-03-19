@@ -1,5 +1,5 @@
 package model;
-
+import java.time.*;
 import java.util.Random;
 
 public class Board {
@@ -8,6 +8,10 @@ public class Board {
      *objRandom, is used for creating random number 
      */
     Random objRandom;
+
+    private Instant start= null;
+    private Instant end = null;
+    private Clock clock = Clock.systemDefaultZone();
     
     /**
      *root is the node Tile that represents the first Tile
@@ -433,7 +437,6 @@ public class Board {
 
     }
 
-
     public void movePlayer(int dice, String id){
         
         Player player = findPlayer(id, players.length);
@@ -465,6 +468,21 @@ public class Board {
         }
     }
 
+    public boolean checkwin(int playerPosition, int dice) {
+        return (playerPosition+dice)>=(m*n);
+    }
 
+    public void StartGame(){
+        start = clock.instant();
+    }
+
+    public void EndGame(){
+        end = clock.instant();
+    }
+
+    public void calculateScore(Player winner){
+       int score = (600-((int)Duration.between(start, end).getSeconds())) * 10;
+        winner.setScore(score);
+    }
     
 }

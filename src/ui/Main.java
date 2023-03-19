@@ -84,10 +84,9 @@ public class Main {
                             " CREATING BOARD.....\n" +
                             "  \n" +
                             " ");
+                            
                     operation();
-
-
-                    
+                    game();;
                     break;
 
             }
@@ -96,18 +95,23 @@ public class Main {
         }
     }
 
-    public void startGame(){
+    public void game(){
         int n = 0;
         int op = 0;
+        int dice = 0;
+        pc.StartGame();
         do{
 
             
             System.out.println("\n\n"+pc.printBoard()+ "\n\n");
             op =  menuGame(n);
 
+           
+
            switch (op) {
             case 1:
-                pc.movePlayer(throwDice(),pc.getPlayers()[n].getSimbolo());
+                dice = throwDice();
+                pc.movePlayer(dice,pc.getPlayers()[n].getSimbolo());
                 break;
             case 2: 
 
@@ -121,10 +125,15 @@ public class Main {
 
            n++;
 
-           if(n >= 3){
+           if(n > 3){
                 n = 0;
            }
-        }while(pc.checkWin());
+        }while(!pc.checkwin(pc.getPlayers()[n].getPosition().getNumberTile(),dice));
+        pc.EndGame();
+
+        pc.calculateScore(pc.getPlayers()[n]);
+
+        
     }
 
     public int menuGame(int n){
@@ -156,8 +165,6 @@ public class Main {
     public int throwDice(){
 
         return (int) (Math.random() * 6) + 1;
-
-
 
     }
 
