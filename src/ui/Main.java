@@ -48,9 +48,6 @@ public class Main {
         }
     }
 
-
-
-
     private void menuAddPlayer(){
 
         while (!exit){
@@ -88,9 +85,6 @@ public class Main {
                             "  \n" +
                             " ");
                     operation();
-                    do {
-                        
-                    } while (!exit);
 
 
                     
@@ -102,13 +96,63 @@ public class Main {
         }
     }
 
+    public void startGame(){
+        int n = 0;
+        int op = 0;
+        do{
+
+            
+            System.out.println("\n\n"+pc.printBoard()+ "\n\n");
+            op =  menuGame(n);
+
+           switch (op) {
+            case 1:
+                pc.movePlayer(throwDice(),pc.getPlayers()[n].getSimbolo());
+                break;
+            case 2: 
+
+                System.out.println(pc.printSnake());
+                break;
+            
+            case 3: 
+                System.out.println(pc.printLadder());
+                break;
+           }
+        }while(pc.checkWin());
+    }
+
+    public int menuGame(int n){
+        int op = 0;
+
+        System.out.println("Turno del jugador " + pc.getPlayers()[n] + "\n" + 
+        "[1] Tirar dado\n" + 
+        "[2] Ver escaleras\n"  + 
+        "[3] Ver serpientes\n");
+
+        op = sc.nextInt();
+        sc.nextLine();
+
+        return op;
+    }
+
     private void operation() {
         System.out.println("Ingrese el alto del tablero");
         int height= sc.nextInt();
         System.out.println("Ingrese el ancho del tablero ");
         int width = sc.nextInt();
         pc = new Board(height,width); 
+        System.out.println(pc.printBoard());
+        System.out.println(pc.printSnake());
+        System.out.println(pc.printLadder());
             
+    }
+
+    public int throwDice(){
+
+        return (int) (Math.random() * 6) + 1;
+
+
+
     }
 
     

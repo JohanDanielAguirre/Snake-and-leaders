@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Tile {
 
     private int numberTile;
@@ -7,11 +9,24 @@ public class Tile {
     private Tile next;
     private Tile previous;
 
-    private Snake snake;
+    private Transportable transport;
+    
+    public Transportable getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transportable transport) {
+        this.transport = transport;
+    }
+
     private boolean isHead;
-    private Ladder ladder;
 
     private StateSnakeOrLadder state;
+    private ArrayList<Player> players;
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 
     public boolean isHead() {
         return isHead;
@@ -29,30 +44,10 @@ public class Tile {
         this.state = state;
     }
 
-    public Snake getSnake() {
-        return snake;
-    }
-
-    public void setSnake(Snake snake) {
-        this.snake = snake;
-    }
-
-    public Ladder getLadder() {
-        return ladder;
-    }
-
-    public void setLadder(Ladder ladder) {
-        this.ladder = ladder;
-    }
-
-    private Player[] players;
-
     public Tile(int numberTile) {
         this.numberTile = numberTile;
-        players = new Player[3];
         state = StateSnakeOrLadder.FREE;
-        snake = null;
-        ladder = null;
+        players = new ArrayList<>();
     }
 
     public int getNumberTile() {
@@ -79,11 +74,29 @@ public class Tile {
         this.previous = previous;
     }
 
-    public Player[] getPlayers() {
-        return players;
+    public void addPLayers(Player player){
+        players.add(player);
     }
 
-    public void setPlayers(Player[] players) {
-        this.players = players;
+    public void removePlayer(Player player){
+        players.remove(player);
     }
+
+    public String printPlayers(){
+        return printPLayers(0);
+    }
+
+    private String printPLayers(int n){
+        String msg = "";
+
+        if(players.size()<n){
+            msg += players.get(n).getSimbolo();
+            msg += printPLayers(n+1);
+        }
+
+        return msg;
+    }
+
+
+   
 }

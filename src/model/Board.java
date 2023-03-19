@@ -13,7 +13,13 @@ public class Board {
      *root is the node Tile that represents the first Tile
      */
     private Tile root;
+
+    private Player[] players; 
    
+    public Player[] getPlayers() {
+        return players;
+    }
+
     /**
      *tail is the node Tile that represents the last Tile
      */
@@ -45,6 +51,7 @@ public class Board {
         this.m = m;
         objRandom = new Random();
         createBoard(numOfTiles);
+        players = new Player[3];
     }
 
     /**
@@ -92,7 +99,7 @@ public class Board {
      * call the private method addSnakesToTiles
      */
     public void addSnakes() {
-        int numSnakes = m/3;
+        int numSnakes = m/2;
         addSnakesToTiles(65, numSnakes);
 
     }
@@ -112,7 +119,7 @@ public class Board {
 
         while(flag2){
             numRandomHead = objRandom.nextInt(numOfTiles);
-            numRandomHead = numRandomHead <= 1? numRandomHead + 1 : numRandomHead;
+            numRandomHead = numRandomHead <= 2? numRandomHead + 1 : numRandomHead;
             tile = findTile(root, numRandomHead);
 
             if (tile!= null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
@@ -120,13 +127,16 @@ public class Board {
             }
         }
 
+        
+
         boolean flag1 = true;
 
-        if (numRandomHead > 3 || numRandomHead < numOfTiles) {
+        if (numRandomHead > 3 && numRandomHead < numOfTiles) {
 
             if (tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
 
-                tile.setSnake(new Snake(id));
+                Snake snakeHead = new Snake(id);
+                tile.setTransport(snakeHead);;
                 tile.setHead(true);
                 tile.setState(StateSnakeOrLadder.OCCUPIEDSNAKE);
                 Tile tileTail = null;
@@ -146,9 +156,11 @@ public class Board {
                 }
 
                 if (tileTail.getState().equals(StateSnakeOrLadder.FREE) ) {
-
-                    tileTail.setSnake(new Snake(id));
+                    Snake snake = new Snake(id);
+                    tileTail.setTransport(snake);
                     tileTail.setState(StateSnakeOrLadder.OCCUPIEDSNAKE);
+                    snake.setTail(tileTail);
+                    
 
                 }
 
@@ -164,7 +176,7 @@ public class Board {
      * call the private method addLaddersToTiles
      */
     public void addLaddersToTiles(){
-        int numLadders = m/3;
+        int numLadders = m/2;
         addLaddersToTiles(1,numLadders);
     }
 
@@ -183,6 +195,9 @@ public class Board {
 
         while(flag2){
             numRandomHead = (int) (Math.random() * (numOfTiles));
+            if(numRandomHead == 0){
+                numRandomHead = 1;
+            }
             numRandomHead = numRandomHead <= 1? numRandomHead + 1 : numRandomHead;
             tile = findTile(root,numRandomHead);
             if(tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)){
@@ -197,7 +212,8 @@ public class Board {
             
             if(tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
 
-                tile.setLadder(new Ladder(id));
+                Ladder ladderEnd = new Ladder(id);
+                tile.setTransport(ladderEnd);
                 tile.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
 
                 int startPlace;
@@ -217,7 +233,8 @@ public class Board {
 
                 if(tileStart.getState().equals(StateSnakeOrLadder.FREE)){
 
-                    tileStart.setLadder(new Ladder(id));
+                    Ladder ladderStart = new Ladder(id);
+                    tileStart.setTransport(ladderStart);
                     tileStart.setHead(true);
                     tileStart.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
 
@@ -277,7 +294,12 @@ public class Board {
             tile = findTile(root,numero);
         }
 
-        msg+= "["+tile.getNumberTile()+"]";
+        if(tile.getPlayers().isEmpty()){
+            msg+= "["+tile.getNumberTile()+"]";
+        }else{
+            msg+= "["+tile.getNumberTile()+tile.printPlayers()+"]";
+        }
+        
 
         if (columna == m) {
             msg+="\n";
@@ -321,16 +343,16 @@ public class Board {
         if (fila % 2 != 0){
             number = (fila - 1) * m + columna;
             tile = findTile(root, number);
-            if(tile.getSnake()!=null){
-                msg+= "["+tile.getSnake().getId()+"]";
+            if(tile.getTransport()!=null && tile.getTransport() instanceof Snake){
+                msg+= "["+tile.getTransport().toString()+"]";
             }else{
                 msg+= "["+" "+"]";
             }
         }else {
             number = fila * m - columna + 1;
             tile =findTile(root, number);
-            if(tile.getSnake()!=null){
-                msg+= "["+tile.getSnake().getId()+"]";
+            if(tile.getTransport()!=null && tile.getTransport() instanceof Snake){
+                msg+= "["+tile.getTransport().toString()+"]";
             }else{
                 msg+= "["+" "+"]";
             }
@@ -382,16 +404,16 @@ public class Board {
         if (fila % 2 != 0){
             number = (fila - 1) * m + columna;
             tile = findTile(root, number);
-            if(tile.getLadder()!=null){
-                msg+= "["+tile.getLadder().getId()+"]";
+            if(tile.getTransport()!=null && tile.getTransport() instanceof Ladder){
+                msg+= "["+tile.getTransport().toString()+"]";
             }else{
                 msg+= "["+" "+"]";
             }
         }else {
             number = fila * m - columna + 1;
             tile =findTile(root, number);
-            if(tile.getLadder()!=null){
-                msg+= "["+tile.getLadder().getId()+"]";
+            if(tile.getTransport()!=null && tile.getTransport() instanceof Ladder){
+                msg+= "["+tile.getTransport().toString()+"]";
             }else{
                 msg+= "["+" "+"]";
             }
@@ -411,12 +433,37 @@ public class Board {
 
     }
 
-   
 
+    public void movePlayer(int dice, String id){
+        
+        Player player = findPlayer(id, players.length);
+        int tiles2Move = 0;
+        Tile destiny = null;
 
+        if(player != null){
+            tiles2Move = dice + player.getPosition().getNumberTile();
+            destiny = findTile(root, tiles2Move);
+        }
+        
+        if(tiles2Move > 0){
+            player.setPosition(destiny);
+        }
+        
+        if(player.getPosition().isHead()){
+            player.getPosition().getTransport().transport(destiny, player);
+        }
+    }
 
+    public Player findPlayer(String symbol, int n){
 
-
+        if(n < 0){
+            return null;
+        }else if(players[n].getSimbolo().equals(symbol)){
+            return players[n];
+        }else{
+            return findPlayer(symbol, n-1);
+        }
+    }
 
 
     

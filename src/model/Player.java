@@ -7,6 +7,18 @@ public class Player {
     private int score;
     private String simbolo;
 
+    private Tile position;
+
+    public Tile getPosition() {
+        return position;
+    }
+
+
+    public void setPosition(Tile position) {
+        this.position = position;
+    }
+
+
     public Player(String simbolo) {
         this.simbolo = simbolo;
     }
@@ -27,5 +39,7 @@ public class Player {
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
     }
+
+    
 
 }
