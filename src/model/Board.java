@@ -21,6 +21,8 @@ public class Board {
 
     public void createBoard(int numberTiles) {
         createBoard(numOfTiles, 0);
+        addSnakes();
+        addLaddersToTiles();
     }
 
     private void createBoard(int numOfTiles, int n) {
@@ -45,7 +47,7 @@ public class Board {
     }
 
     public void addSnakes() {
-        int numSnakes = numOfTiles/3;
+        int numSnakes = n/3;
         addSnakesToTiles(65, numSnakes);
 
     }
@@ -56,7 +58,8 @@ public class Board {
         Tile tile = null;
 
         while(flag2){
-            numRandomHead = (int) (Math.random() * (numOfTiles-1));
+            numRandomHead = objRandom.nextInt(numOfTiles);
+            numRandomHead = numRandomHead <= 1? numRandomHead + 1 : numRandomHead;
             tile = findTile(root, numRandomHead);
 
             if (tile!= null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
@@ -104,7 +107,7 @@ public class Board {
     }
 
     public void addLaddersToTiles(){
-        int numLadders = numOfTiles/3;
+        int numLadders = n/3;
         addLaddersToTiles(1,numLadders);
     }
 
@@ -163,18 +166,20 @@ public class Board {
     }
     private String printBoard(int fila, int columna) {
        String msg = "";
-
+        Tile tile = null;
         if (fila ==  0) {
             return "";
         }
         int numero;
         if (fila % 2 != 0) {
             numero = (fila - 1) * m + columna;
+            tile = findTile(root,numero);
         } else {
             numero = fila * m - columna + 1;
+            tile = findTile(root,numero);
         }
 
-        msg+= "["+numero+"]";
+        msg+= "["+tile.getNumberTile()+"]";
 
         if (columna == m) {
             msg+="\n";
@@ -188,27 +193,39 @@ public class Board {
 
     public String printSnake(){
         String msg = "";
-        msg = printSnake(n,1,root,1);
+        msg = printSnake(n,1,tail);
         return msg;
     }
 
-    private String printSnake(int fila, int columna,Tile pointer,int counter) {
+    private String printSnake(int fila, int columna,Tile pointer) {
 
         String msg = "";
+        Tile tile = null;
         if(pointer != null){
             if (fila ==  0) {
-                return "" + counter;
+                return "";
             }
-            if(pointer.getSnake()!=null){
-                msg+= "["+pointer.getNumberTile()+pointer.getSnake().getId()+"]";
-            }else{
-                msg+= "["+" "+"]";
+
+            if (fila % 2 != 0){
+                if(pointer.getSnake()!=null){
+                    msg+= "["+pointer.getNumberTile()+pointer.getSnake().getId()+"]";
+                }else{
+                    msg+= "["+pointer.getNumberTile()+"]";
+                }
+            }else {
+                if(pointer.getSnake()!=null){
+                    msg+= "["+pointer.getNumberTile()+pointer.getSnake().getId()+"]";
+                }else{
+                    msg+= "["+pointer.getNumberTile()+"]";
+                }
             }
+
+
             if (columna == m) {
                 msg+="\n";
-                msg += printSnake(fila+1, 1,pointer.getNext(),counter+1);
+                msg += printSnake(fila-1, 1,pointer.getPrevious());
             } else {
-                msg += printSnake(fila, columna+1,pointer.getNext(),counter+1);
+                msg += printSnake(fila, columna+1,pointer.getPrevious());
             }
         }
 

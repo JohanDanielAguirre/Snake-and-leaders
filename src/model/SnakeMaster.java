@@ -11,13 +11,6 @@ public class SnakeMaster {
 
     public void createBoard(int n, int m){
         board.createBoard((n*m));
-        System.out.println("Se crea tablero");
-        board.addSnakes();
-        System.out.println("Se crea serpientes");
-        board.addLaddersToTiles();
-        System.out.println("poto");
-
-
     }
 
 
