@@ -1,16 +1,16 @@
 package ui;
 
-import model.SnakeMaster;
+import model.Board;
 
 
 import java.util.Scanner;
 
 public class Main {
-    //Relationship
-    private SnakeMaster pc;
+    
+    private Board pc;
     private Scanner sc;
     private static boolean exit = false;
-    //Builder
+   
     public Main() {
 
         sc = new Scanner(System.in);
@@ -76,7 +76,7 @@ public class Main {
                     mainMenu();
                     break;
                 case 1:
-                    addPlayer();
+                    //addPlayer();
                     break;
                 case 2:
                     //pendiente metodo se mostrar jugadores
@@ -88,6 +88,12 @@ public class Main {
                             "  \n" +
                             " ");
                     operation();
+                    do {
+                        
+                    } while (!exit);
+
+
+                    
                     break;
 
             }
@@ -95,54 +101,15 @@ public class Main {
 
         }
     }
-    private  void addPlayer(){
 
-        while (!exit){
-
-            String[] player = new String[3];
-            for (int i = 0; i< player.length;i++){
-                System.out.println("player -> " + (i+1)
-                        + "\n select a simbol"
-                        +"\n  * ! O X % $ # + &");
-                String simbol = sc.nextLine();
-                int puntaje =0;
-                int posicion = 0;
-
-                //pendiente arbol para agragar usuario y puntaje
-
-
-
-            }
-
-
-            System.out.println("\n" +
-                    "                     \n" +
-                    "                     [0] Back to main menu \n" +
-                    "                     \\");
-            int option = sc.nextInt();
-            sc.nextLine();
-
-            switch (option ){
-                case 0:
-                    mainMenu();
-                    break;
-
-            }
-        }
-
-    }
     private void operation() {
         System.out.println("Ingrese el alto del tablero");
         int height= sc.nextInt();
         System.out.println("Ingrese el ancho del tablero ");
         int width = sc.nextInt();
-        pc = new SnakeMaster(height,width);
-        showboard();
-        System.out.println("No funciona si solo se muestra esta");
+        pc = new Board(height,width); 
+            
     }
-    private void showboard(){
-        System.out.println(pc.print());
-        System.out.println(pc.print2());
-        System.out.println(pc.print3());
-    }
+
+    
 }

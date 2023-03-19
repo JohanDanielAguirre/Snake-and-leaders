@@ -1,30 +1,68 @@
 package model;
-import com.sun.jndi.toolkit.ctx.HeadTail;
 
 import java.util.Random;
 
 public class Board {
 
-    Random objRandom = new Random();
+    /**
+     *objRandom, is used for creating random number 
+     */
+    Random objRandom;
+    
+    /**
+     *root is the node Tile that represents the first Tile
+     */
     private Tile root;
+   
+    /**
+     *tail is the node Tile that represents the last Tile
+     */
     private Tile tail;
 
+
+    /**
+     *number of Tiles in the board
+     */
     private int numOfTiles;
+    
+    /**
+     * n is the number of rows in the board
+     */
     private int n;
+    /**
+     *m is the number of columns in the board
+     */
     private int m;
 
+    /**
+     * Constructor method of the class Board
+     * @param n the number of rows
+     * @param m the number of columns
+     */
     public Board(int n, int m) {
         this.numOfTiles = n * m;
         this.n = n;
         this.m = m;
+        objRandom = new Random();
+        createBoard(numOfTiles);
     }
 
+    /**
+     * Call the private method createBoard
+     * @param numberTiles total of Tiles to be put in the board
+     */
     public void createBoard(int numberTiles) {
         createBoard(numOfTiles, 0);
         addSnakes();
         addLaddersToTiles();
     }
 
+    /**
+     * Name : createBoard
+     * create the board
+     * @param numOfTiles the number of tile to be created
+     * @param n counter to put the number in the Tile
+     */
     private void createBoard(int numOfTiles, int n) {
 
         if (n == numOfTiles) {
@@ -34,6 +72,10 @@ public class Board {
         createBoard(numOfTiles, n + 1);
     }
 
+    /**
+     * Name : addTileAtTile
+     * @param node add a node Tile in the last position of the list
+     */
     private void addTileAtTail(Tile node) {
 
         if (root == null) {
@@ -45,13 +87,24 @@ public class Board {
         tail = node;
 
     }
-
+    /**
+     * Name: addSnakes
+     * call the private method addSnakesToTiles
+     */
     public void addSnakes() {
-        int numSnakes = n/3;
+        int numSnakes = m/3;
         addSnakesToTiles(65, numSnakes);
 
     }
 
+    /**
+     * Name : addSnakesTiles
+     * create the snakes in the board
+     * pre: board != null
+     * pos : snakes created in board and stored in Tile
+     * @param id : the id of the snake
+     * @param laddersleft the number of snakes left to be created
+     */
     private void addSnakesToTiles(int id, int snakesLeft) {
         boolean flag2 = true;
         int numRandomHead = 0;
@@ -106,11 +159,23 @@ public class Board {
 
     }
 
+    /**
+     * Name: addLaddersToTiles
+     * call the private method addLaddersToTiles
+     */
     public void addLaddersToTiles(){
-        int numLadders = n/3;
+        int numLadders = m/3;
         addLaddersToTiles(1,numLadders);
     }
 
+    /**
+     * Name : addLaddersTiles
+     * create the ladders in the board
+     * pre: board != null
+     * pos : ladders created in board and stored in Tile
+     * @param id : the id of the ladder
+     * @param laddersleft the number of ladders left to be created
+     */
     private void addLaddersToTiles(int id, int laddersleft){
         boolean flag2 = true;
         int numRandomHead = 0;
@@ -162,6 +227,12 @@ public class Board {
         if (laddersleft > 1) {addLaddersToTiles(id+1,laddersleft-1);}
     }
 
+    /**
+     * Name: findTile
+     * @param tileFound the tile found by search
+     * @param numTile the id which is going to be compared to the search
+     * @return the tile found 
+     */
     public Tile findTile(Tile tileFound, int numTile){
 
         if(tileFound!=null && tileFound.getNumberTile()!=numTile){
@@ -172,12 +243,25 @@ public class Board {
 
 
     }
-
+   /**
+     * Name : printBoard
+     * call the private method printBoard
+     * @return msg with the board printed
+     */
     public String printBoard(){
         String msg = "";
         msg = printBoard(n,1);
         return msg;
     }
+      /**
+     * Name : printBoard
+     * print the board with the palyers in it
+     * pre : board != null
+     * pos : print board
+     * @param fila int: number of rows
+     * @param columna int: number of columns
+     * @return msg with the board printed
+     */
     private String printBoard(int fila, int columna) {
        String msg = "";
         Tile tile = null;
@@ -205,12 +289,26 @@ public class Board {
         return msg;
     }
 
+    /**
+     * Name : printSnake
+     * call the private method printSnake
+     * @return msg with the board printed
+     */
     public String printSnake(){
         String msg = "";
         msg = printSnake(n,1);
         return msg;
     }
 
+    /**
+     * Name : printSnaker
+     * print the board only showing the snakes
+     * pre : board != null
+     * pos : print board
+     * @param fila int: number of rows
+     * @param columna int: number of columns
+     * @return msg with the board printed
+     */
     private String printSnake(int fila, int columna) {
 
         String msg = "";
@@ -250,12 +348,28 @@ public class Board {
 
         return msg;
     }
+
+    /**
+     * Name: printLadder
+     * call the private method printLadder, shows the board without number but ladders
+     * @return msg with the board printed 
+     */
     public String printLadder(){
         String msg = "";
         msg = printLadder(n,1);
         return msg;
     }
 
+    
+    /**
+     * Name : printLadder
+     * print the board only showing the ladders
+     * pre : board != null
+     * pos : print board
+     * @param fila int: number of rows
+     * @param columna int: number of columns
+     * @return msg with the board printed
+     */
     private String printLadder(int fila, int columna) {
 
         String msg = "";
@@ -296,6 +410,8 @@ public class Board {
         return msg;
 
     }
+
+   
 
 
 
