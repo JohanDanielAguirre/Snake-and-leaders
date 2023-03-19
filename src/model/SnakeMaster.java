@@ -11,6 +11,7 @@ public class SnakeMaster {
 
     public void createBoard(int n, int m){
         board.createBoard((n*m));
+        System.out.println("Hola    ");
     }
 
 

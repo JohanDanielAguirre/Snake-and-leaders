@@ -1,7 +1,7 @@
 package ui;
 
 import model.SnakeMaster;
-import java.util.Random;
+
 
 import java.util.Scanner;
 
