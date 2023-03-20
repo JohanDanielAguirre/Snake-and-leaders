@@ -167,9 +167,22 @@ public class Main {
         int height= sc.nextInt();
         System.out.println("Ingrese el ancho del tablero ");
         int width = sc.nextInt();
-        System.out.println("Ingrese el numero de Escaleras y Serpientes");
-        int entities = sc.nextInt();
-        pc = new Board(height,width,entities); 
+        boolean flag = false;
+        int snakes = 0;
+        int entitiesLadder = 0;
+        while(!flag){
+            System.out.println("Ingrese el numero de Escaleras ");
+            entitiesLadder = sc.nextInt();
+            System.out.println("Ingrese el numero de Serpientes");
+            snakes = sc.nextInt();
+
+            if(((entitiesLadder + snakes) * 2)<(height*width)){
+                flag = true;
+            }
+        }
+        
+
+        pc = new Board(height,width,entitiesLadder,snakes); 
     
     }
 

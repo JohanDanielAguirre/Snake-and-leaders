@@ -49,12 +49,12 @@ public class Board {
      * @param n the number of rows
      * @param m the number of columns
      */
-    public Board(int n, int m,int entity) {
+    public Board(int n, int m,int entity,int numSnakes) {
         this.numOfTiles = n * m;
         this.n = n;
         this.m = m;
         objRandom = new Random();
-        createBoardTotal(numOfTiles,entity);
+        createBoardTotal(numOfTiles,entity,numSnakes);
         players = new Player[3];
     }
 
@@ -62,10 +62,10 @@ public class Board {
      * Call the private method createBoard
      * @param numberTiles total of Tiles to be put in the board
      */
-    public void createBoardTotal(int numberTiles,int numEntity) {
+    public void createBoardTotal(int numberTiles,int numLadder,int numSnakes) {
         createBoard(numOfTiles,0);
-        addSnakes(numEntity);
-        addLaddersToTiles(numEntity);
+        addSnakes(numSnakes);
+        addLaddersToTiles(numLadder);
     }
 
     /**
