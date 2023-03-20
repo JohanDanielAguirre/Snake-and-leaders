@@ -1,6 +1,7 @@
 package ui;
 
 import model.Board;
+import model.ABB;
 
 
 import java.util.Scanner;
@@ -8,12 +9,14 @@ import java.util.Scanner;
 public class Main {
     
     private Board pc;
+    private ABB scores;
     private Scanner sc;
     private static boolean exit = false;
    
     public Main() {
 
         sc = new Scanner(System.in);
+        scores = new ABB();
     }
     public static void main(String[] args) {
         Main m = new Main();
@@ -41,6 +44,7 @@ public class Main {
                     exit = true;
                     break;
                 case 1:
+                    operation();
                     menuAddPlayer();
                     break;
             }
@@ -57,7 +61,7 @@ public class Main {
                     "  +++++++++++++++++++++\n" +
                     " \n" +
                     "  [1] Add Player\n" +
-                    "  [2] Show players\n" +
+                    "  [2] Show players by score\n" +
                     "  [3] Start game \n" +
                     "  [0] Back to main menu \n" +
                     "   ++++++++++++++++++++++\n" +
@@ -73,10 +77,14 @@ public class Main {
                     mainMenu();
                     break;
                 case 1:
-                    //addPlayer();
+                    addPlayer();
                     break;
                 case 2:
-                    //pendiente metodo se mostrar jugadores
+                    if(scores.getRoot() != null){
+                        System.out.println(scores.inorder());
+                    }else{
+                        System.out.println("No existen jugadores en la scoreBoard");
+                    }
 
                     break;
                 case 3:
@@ -85,7 +93,6 @@ public class Main {
                             "  \n" +
                             " ");
                             
-                    operation();
                     game();;
                     break;
 
@@ -111,6 +118,7 @@ public class Main {
            switch (op) {
             case 1:
                 dice = throwDice();
+                System.out.println("Dado:" + dice);
                 pc.movePlayer(dice,pc.getPlayers()[n].getSimbolo());
                 break;
             case 2: 
@@ -125,13 +133,17 @@ public class Main {
 
            n++;
 
-           if(n > 3){
+           if(n > 2){
                 n = 0;
            }
-        }while(!pc.checkwin(pc.getPlayers()[n].getPosition().getNumberTile(),dice));
+        }while(!pc.checkwin(pc.getPlayers()[n].getPosition().getNumberTile()));
         pc.EndGame();
 
         pc.calculateScore(pc.getPlayers()[n]);
+
+        scores.addNode(pc.getPlayers()[n]);
+
+
 
         
     }
@@ -139,10 +151,10 @@ public class Main {
     public int menuGame(int n){
         int op = 0;
 
-        System.out.println("Turno del jugador " + pc.getPlayers()[n] + "\n" + 
+        System.out.println("Turno del jugador " + pc.getPlayers()[n].getSimbolo() + "\n" + 
         "[1] Tirar dado\n" + 
-        "[2] Ver escaleras\n"  + 
-        "[3] Ver serpientes\n");
+        "[2] Ver Serpientes\n"  + 
+        "[3] Ver Escaleras\n");
 
         op = sc.nextInt();
         sc.nextLine();
@@ -155,17 +167,32 @@ public class Main {
         int height= sc.nextInt();
         System.out.println("Ingrese el ancho del tablero ");
         int width = sc.nextInt();
-        pc = new Board(height,width); 
-        System.out.println(pc.printBoard());
-        System.out.println(pc.printSnake());
-        System.out.println(pc.printLadder());
-            
+        System.out.println("Ingrese el numero de Escaleras y Serpientes");
+        int entities = sc.nextInt();
+        pc = new Board(height,width,entities); 
+    
     }
 
     public int throwDice(){
 
         return (int) (Math.random() * 6) + 1;
 
+    }
+
+    private void addPlayer(){
+        int n = 0;
+        do{
+            System.out.println("player -> " + (n+1)
+            + "\n select a simbol"
+            +"\n  * ! O X % $ # + &");
+            String symbol = sc.nextLine();
+            pc.addPlayer(symbol, n);
+
+            n++;
+
+
+        }while(n<3);
+       
     }
 
     

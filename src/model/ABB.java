@@ -4,6 +4,9 @@ public class ABB {
 
     private Node root;
 
+    public Node getRoot() {
+        return root;
+    }
     public void addNode(Player player) {
         if (root == null) { // arbol vacio
             root = new Node(player);
@@ -40,16 +43,5 @@ public class ABB {
             message += inorder(node.getLeft());
         }
         return message;
-    }
-    private Node getMin(Node pointer){
-        if(pointer.getLeft()==null){
-            return pointer;
-        } else {
-            return getMin(pointer.getLeft());
-        }
-    }
-
-    private Node getSucesor(Node pointer) {
-        return getMin(pointer.getRight());
     }
 }

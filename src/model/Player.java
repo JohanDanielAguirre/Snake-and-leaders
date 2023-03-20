@@ -15,7 +15,13 @@ public class Player {
 
 
     public void setPosition(Tile position) {
+        if(this.position != null){
+            this.position.removePlayer(this);
+            position.addPLayers(this);
+        }
         this.position = position;
+       
+       
     }
 
 

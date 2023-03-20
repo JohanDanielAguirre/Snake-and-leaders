@@ -49,12 +49,12 @@ public class Board {
      * @param n the number of rows
      * @param m the number of columns
      */
-    public Board(int n, int m) {
+    public Board(int n, int m,int entity) {
         this.numOfTiles = n * m;
         this.n = n;
         this.m = m;
         objRandom = new Random();
-        createBoard(numOfTiles);
+        createBoardTotal(numOfTiles,entity);
         players = new Player[3];
     }
 
@@ -62,10 +62,10 @@ public class Board {
      * Call the private method createBoard
      * @param numberTiles total of Tiles to be put in the board
      */
-    public void createBoard(int numberTiles) {
-        createBoard(numOfTiles, 0);
-        addSnakes();
-        addLaddersToTiles();
+    public void createBoardTotal(int numberTiles,int numEntity) {
+        createBoard(numOfTiles,0);
+        addSnakes(numEntity);
+        addLaddersToTiles(numEntity);
     }
 
     /**
@@ -102,8 +102,8 @@ public class Board {
      * Name: addSnakes
      * call the private method addSnakesToTiles
      */
-    public void addSnakes() {
-        int numSnakes = m/2;
+    public void addSnakes(int numSnakes) {
+        
         addSnakesToTiles(65, numSnakes);
 
     }
@@ -123,7 +123,10 @@ public class Board {
 
         while(flag2){
             numRandomHead = objRandom.nextInt(numOfTiles);
-            numRandomHead = numRandomHead <= 2? numRandomHead + 1 : numRandomHead;
+            if(numRandomHead == 0){
+                numRandomHead = 1;
+            }
+            numRandomHead = numRandomHead <= 1? numRandomHead + 1 : numRandomHead;
             tile = findTile(root, numRandomHead);
 
             if (tile!= null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
@@ -179,8 +182,8 @@ public class Board {
      * Name: addLaddersToTiles
      * call the private method addLaddersToTiles
      */
-    public void addLaddersToTiles(){
-        int numLadders = m/2;
+    public void addLaddersToTiles(int numLadders){
+        
         addLaddersToTiles(1,numLadders);
     }
 
@@ -219,6 +222,7 @@ public class Board {
                 Ladder ladderEnd = new Ladder(id);
                 tile.setTransport(ladderEnd);
                 tile.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
+                ladderEnd.setEnd(tile);
 
                 int startPlace;
 
@@ -439,7 +443,7 @@ public class Board {
 
     public void movePlayer(int dice, String id){
         
-        Player player = findPlayer(id, players.length);
+        Player player = findPlayer(id, 0);
         int tiles2Move = 0;
         Tile destiny = null;
 
@@ -447,29 +451,32 @@ public class Board {
             tiles2Move = dice + player.getPosition().getNumberTile();
             destiny = findTile(root, tiles2Move);
         }
+
+        if(!checkwin(player.getPosition().getNumberTile())){
         
-        if(tiles2Move > 0){
-            player.setPosition(destiny);
+            if(tiles2Move > 0){
+                player.setPosition(destiny);
+            }
+            if(player != null && player.getPosition().isHead()){
+                player.getPosition().getTransport().transport(destiny, player);
+            }
         }
         
-        if(player.getPosition().isHead()){
-            player.getPosition().getTransport().transport(destiny, player);
-        }
     }
 
     public Player findPlayer(String symbol, int n){
 
-        if(n < 0){
+        if(n > players.length-1){
             return null;
         }else if(players[n].getSimbolo().equals(symbol)){
             return players[n];
         }else{
-            return findPlayer(symbol, n-1);
+            return findPlayer(symbol, n+1);
         }
     }
 
-    public boolean checkwin(int playerPosition, int dice) {
-        return (playerPosition+dice)>=(m*n);
+    public boolean checkwin(int playerPosition) {
+        return (playerPosition)>=(m*n);
     }
 
     public void StartGame(){
@@ -483,6 +490,12 @@ public class Board {
     public void calculateScore(Player winner){
        int score = (600-((int)Duration.between(start, end).getSeconds())) * 10;
         winner.setScore(score);
+    }
+
+    public void addPlayer(String name,int n) {
+        players[n] = new Player(name);
+        players[n].setPosition(root);
+        root.addPLayers(players[n]);
     }
     
 }

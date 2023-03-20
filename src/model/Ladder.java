@@ -5,6 +5,10 @@ public class Ladder implements Transportable{
 
     private Tile end;
 
+    public void setEnd(Tile end) {
+        this.end = end;
+    }
+
     public Ladder(int id){
         this.id = id;
     }

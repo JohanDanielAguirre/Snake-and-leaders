@@ -83,15 +83,17 @@ public class Tile {
     }
 
     public String printPlayers(){
-        return printPLayers(0);
+        return printPLayers("",0);
     }
 
-    private String printPLayers(int n){
-        String msg = "";
+    private String printPLayers(String msg, int n){
 
-        if(players.size()<n){
-            msg += players.get(n).getSimbolo();
-            msg += printPLayers(n+1);
+        if(players.size() > n){
+            msg = players.get(n).getSimbolo();
+            if(players.size()-1 != n){
+                msg += printPLayers(msg,n+1);
+            }
+           
         }
 
         return msg;
