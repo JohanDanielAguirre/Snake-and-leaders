@@ -122,7 +122,7 @@ public class Board {
         Tile tile = null;
 
         while(flag2){
-            numRandomHead = objRandom.nextInt(numOfTiles);
+            numRandomHead = (int) (Math.random() * (numOfTiles));
             if(numRandomHead == 0){
                 numRandomHead = 1;
             }
@@ -149,7 +149,7 @@ public class Board {
 
                 while (flag1) {
 
-                    tailPlace = objRandom.nextInt(numRandomHead);
+                    tailPlace = objRandom.nextInt(numRandomHead + 1);
                     tailPlace= tailPlace == 0? tailPlace + 2 : tailPlace;
                     tailPlace = tailPlace == 1? tailPlace + 1 : tailPlace;
                     tileTail = findTile(root, tailPlace);
