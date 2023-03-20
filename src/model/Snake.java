@@ -28,7 +28,7 @@ public class Snake implements Transportable{
 
     private void transport(Tile tile, char id, Player j){
         
-        if(tile.getTransport().toString().equals(id+"") && !tile.isHead()){
+        if(tile.getTransport().toString().equals(id+"") && tile.isHead()){
             tile.removePlayer(j);
             tail.addPLayers(j);
         }

@@ -126,7 +126,7 @@ public class Board {
             if(numRandomHead == 0){
                 numRandomHead = 1;
             }
-            numRandomHead = numRandomHead <= 1? numRandomHead + 1 : numRandomHead;
+            numRandomHead = numRandomHead <= 1? numRandomHead + 2 : numRandomHead;
             tile = findTile(root, numRandomHead);
 
             if (tile!= null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
@@ -134,11 +134,9 @@ public class Board {
             }
         }
 
-        
-
         boolean flag1 = true;
 
-        if (numRandomHead > 3 && numRandomHead < numOfTiles) {
+        if (numRandomHead >= 3 && numRandomHead < numOfTiles) {
 
             if (tile != null && tile.getState().equals(StateSnakeOrLadder.FREE)) {
 
@@ -163,10 +161,10 @@ public class Board {
                 }
 
                 if (tileTail.getState().equals(StateSnakeOrLadder.FREE) ) {
-                    Snake snake = new Snake(id);
-                    tileTail.setTransport(snake);
+                    
+                    tileTail.setTransport(snakeHead);
                     tileTail.setState(StateSnakeOrLadder.OCCUPIEDSNAKE);
-                    snake.setTail(tileTail);
+                    snakeHead.setTail(tileTail);
                     
 
                 }
@@ -241,8 +239,8 @@ public class Board {
 
                 if(tileStart.getState().equals(StateSnakeOrLadder.FREE)){
 
-                    Ladder ladderStart = new Ladder(id);
-                    tileStart.setTransport(ladderStart);
+                    
+                    tileStart.setTransport(ladderEnd);
                     tileStart.setHead(true);
                     tileStart.setState(StateSnakeOrLadder.OCCUPIEDLADDER);
 
