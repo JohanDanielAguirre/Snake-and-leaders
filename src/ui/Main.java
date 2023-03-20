@@ -178,7 +178,11 @@ public class Main {
 
             if(((entitiesLadder + snakes) * 2)<(height*width)){
                 flag = true;
+            }else{
+                System.out.println("Ingrese numeros validos. Son demasiadas escaleras o serpientes");
             }
+
+
         }
         
 

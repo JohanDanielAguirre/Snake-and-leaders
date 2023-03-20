@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Admin/Downloads/progrmacion/Snake-and-leaders</OriginalElement>
+  <nodes>
+    <node x="-1056.3793729760696" y="537.1065064087203">model.Snake</node>
+    <node x="-614.3757430560169" y="-229.70257894228587">model.StateSnakeOrLadder</node>
+    <node x="-1892.8775892024003" y="57.5057391663033">ui.Main</node>
+    <node x="329.884656480212" y="-229.70257894228587">model.Player</node>
+    <node x="-675.428952904007" y="438.06328007907774">model.Transportable</node>
+    <node x="-1169.6377660811709" y="786.2300492658633">model.Node</node>
+    <node x="-1518.7002734719867" y="785.7300492658633">model.ABB</node>
+    <node x="-1321.6437852632428" y="-82.50060563520802">model.Board</node>
+    <node x="-685.428952904007" y="-34.759865741530575">model.Ladder</node>
+    <node x="-251.8601586772009" y="-43.72262194077305">model.Tile</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.Node" target="model.Player" relationship="TO_ONE">
+      <point x="-60.499687037084755" y="2.3482478150071984E-4" />
+      <point x="566.1508571428567" y="880.2302840906448" />
+      <point x="566.1508571428567" y="-123.31302677942841" />
+      <point x="35.04947570721731" y="12.389552162857456" />
+    </edge>
+    <edge source="model.Board" target="model.Tile" relationship="CREATE">
+      <point x="107.0" y="-263.21552487699364" />
+      <point x="-51.59796448128617" y="-64.21613051220166" />
+      <point x="96.76219419591473" y="226.5" />
+    </edge>
+    <edge source="model.Ladder" target="model.Transportable" relationship="REALIZATION">
+      <point x="103.49970923407363" y="14.999700027245183" />
+      <point x="-581.9286176210373" y="85.73983428571461" />
+      <point x="3.3528296967233473E-4" y="26.99995050002559" />
+    </edge>
+    <edge source="model.Board" target="model.Tile" relationship="TO_ONE">
+      <point x="105.70616789181577" y="85.54559672092242" />
+      <point x="-123.0" y="284.5449910857144" />
+      <point x="-123.0" y="182.7778228571429" />
+      <point x="103.49973052504461" y="4.4479791593232676E-4" />
+    </edge>
+    <edge source="model.Tile" target="model.Transportable" relationship="TO_ONE">
+      <point x="-89.81686440851212" y="227.81396731220175" />
+      <point x="-279.80701165714163" y="410.5913453714287" />
+      <point x="-279.80701165714163" y="473.2377857811874" />
+      <point x="93.5" y="8.174505702109684" />
+    </edge>
+    <edge source="model.ABB" target="model.Node" relationship="TO_ONE">
+      <point x="44.01522336621463" y="-94.5" />
+      <point x="-1376.685050105772" y="847.8637472205409" />
+      <point x="-1094.1377660811709" y="847.8637472205409" />
+      <point x="15.0" y="94.0" />
+    </edge>
+    <edge source="model.Player" target="model.Tile" relationship="TO_ONE">
+      <point x="-22.424886514497757" y="101.7467904165714" />
+      <point x="370.45976996571426" y="46.99141147428543" />
+      <point x="105.4110143572014" y="-135.78596658494152" />
+    </edge>
+    <edge source="ui.Main" target="model.ABB" relationship="CREATE">
+      <point x="15.0" y="-115.5" />
+      <point x="-1793.8775892024003" y="865.2300492658633" />
+      <point x="98.0" y="-15.0" />
+    </edge>
+    <edge source="model.Board" target="model.Ladder" relationship="CREATE">
+      <point x="91.04952094324449" y="-127.74911889050634" />
+      <point x="-1065.7748357485698" y="71.25027547428564" />
+      <point x="-1065.7748357485698" y="70.74013425846942" />
+      <point x="-891.5363690836249" y="70.74013425846942" />
+      <point x="-891.5363690836249" y="73.5630526171428" />
+      <point x="-108.01959713027736" y="2.822918358673377" />
+    </edge>
+    <edge source="model.Tile" target="model.Player" relationship="TO_MANY">
+      <point x="103.49973052504461" y="-14.999555202084082" />
+      <point x="-106.0" y="167.77782285714287" />
+      <point x="-106.0" y="-135.70257894228587" />
+      <point x="4.751884251428919" y="-135.70257894228587" />
+      <point x="4.751884251428919" y="-135.70264000000003" />
+      <point x="-63.00000540437455" y="-6.105771416287098E-5" />
+    </edge>
+    <edge source="model.Snake" target="model.Tile" relationship="TO_ONE">
+      <point x="109.51775194749962" y="-5.721924008719839" />
+      <point x="-209.72914285714273" y="636.8845824000005" />
+      <point x="-209.72914285714273" y="182.7778228571429" />
+      <point x="103.49973052504461" y="4.4479791593232676E-4" />
+    </edge>
+    <edge source="ui.Main" target="model.ABB" relationship="TO_ONE">
+      <point x="0.0" y="-115.5" />
+      <point x="-1808.8775892024003" y="880.2300492658633" />
+      <point x="98.0" y="0.0" />
+    </edge>
+    <edge source="model.Board" target="model.Player" relationship="CREATE">
+      <point x="-72.86855905675543" y="287.4196742523501" />
+      <point x="-1287.5123443199982" y="766.8432971885704" />
+      <point x="447.1561147467076" y="766.8432971885704" />
+      <point x="54.27145826649557" y="94.0" />
+    </edge>
+    <edge source="model.Snake" target="model.Transportable" relationship="REALIZATION">
+      <point x="100.26664337607087" y="-50.82107829443407" />
+      <point x="-635.2357942857142" y="591.7854281142862" />
+      <point x="-635.2357942857142" y="453.499394364792" />
+      <point x="-581.9286176210373" y="453.499394364792" />
+      <point x="3.3528296967233473E-4" y="26.99995050002559" />
+    </edge>
+    <edge source="model.Ladder" target="model.Tile" relationship="TO_ONE">
+      <point x="103.49970923407363" y="-2.9997275481719043E-4" />
+      <point x="-388.8795643915153" y="70.73983428571461" />
+      <point x="-388.8795643915153" y="70.74013425846942" />
+      <point x="-309.2425104127798" y="70.74013425846942" />
+      <point x="-309.2425104127798" y="70.0938869028571" />
+      <point x="-97.53517992851238" y="-112.68349115636985" />
+    </edge>
+    <edge source="ui.Main" target="model.Board" relationship="TO_ONE">
+      <point x="-84.0" y="0.0" />
+      <point x="-1480.8941308297713" y="173.0057391663033" />
+      <point x="-1480.8941308297713" y="174.1846052571433" />
+      <point x="-94.7957100510423" y="-24.814789107648693" />
+    </edge>
+    <edge source="ui.Main" target="model.Board" relationship="CREATE">
+      <point x="-84.0" y="15.0" />
+      <point x="-1467.4481615185362" y="188.0057391663033" />
+      <point x="-1467.4481615185362" y="189.2176566857147" />
+      <point x="-112.14153862247076" y="-9.781737679077281" />
+    </edge>
+    <edge source="model.ABB" target="model.Node" relationship="CREATE">
+      <point x="29.015223366214627" y="-94.5" />
+      <point x="-1391.685050105772" y="866.3659643633979" />
+      <point x="-1109.1377660811709" y="866.3659643633979" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="model.Board" target="model.Player" relationship="TO_MANY">
+      <point x="-2.733592199612758" y="-283.77846060479214" />
+      <point x="-1178.5227214628555" y="-84.77906624000016" />
+      <point x="-1178.5227214628555" y="-373.4136536685713" />
+      <point x="377.68719853714265" y="-373.4136536685713" />
+      <point x="-15.197457943069367" y="-97.73023815485695" />
+    </edge>
+    <edge source="model.Tile" target="model.StateSnakeOrLadder" relationship="TO_ONE">
+      <point x="-9.188383959543955" y="-226.5" />
+      <point x="-157.54854263674486" y="-215.82546263135563" />
+      <point x="-494.87574305601686" y="-215.82546263135563" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="model.Board" target="model.Snake" relationship="CREATE">
+      <point x="-15.31620485568385" y="-281.5" />
+      <point x="-1229.9599901189267" y="571.1079502954234" />
+      <point x="-948.3793729760696" y="571.1079502954234" />
+      <point x="0.0" y="105.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.864761227071475" showDependencies="true" x="-913.9410163199984" y="244.32333924571378" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

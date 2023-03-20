@@ -20,10 +20,12 @@ public class Ladder implements Transportable{
     public void transport(Tile actual, Player j) {
         transport(actual,id,j);
     }
-    private void transport(Tile node, int id, Player j){
-        if(node.getTransport().toString().equals(id+"") && node.isHead()){
-           node.removePlayer(j);
-           end.addPLayers(j);
+    private void transport(Tile actual, int id, Player j){
+        if(actual.isHead()){
+            
+            actual.removePlayer(j);
+            end.addPLayers(j);
+            
         }
 
     }

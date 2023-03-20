@@ -172,7 +172,7 @@ public class Board {
             }
 
         }
-        if (snakesLeft > 1) addSnakesToTiles(id + 1, snakesLeft - 1);
+        if (snakesLeft > 1){addSnakesToTiles(id + 1, snakesLeft - 1);} 
 
     }
 
@@ -452,11 +452,10 @@ public class Board {
 
         if(!checkwin(player.getPosition().getNumberTile())){
         
-            if(tiles2Move > 0){
-                player.setPosition(destiny);
-            }
             if(player != null && player.getPosition().isHead()){
                 player.getPosition().getTransport().transport(destiny, player);
+            }else{
+                player.setPosition(destiny);
             }
         }
         
